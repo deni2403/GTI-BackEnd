@@ -1,0 +1,29 @@
+'use strict';
+
+const { UUID, UUIDV4 } = require('sequelize');
+
+/** @type {import('sequelize-cli').Migration} */
+module.exports = {
+  async up (queryInterface, Sequelize) {
+    return queryInterface.bulkInsert('users', [{
+      user_uuid: UUIDV4(),
+      name: "SPV 1",
+      email: "superadmin@giant.com",
+      password: "superadmin",
+      role: "Super Admin",
+      location: "Jakarta",
+      user_image: "https://source.unsplash.com/200x200/?woman",
+      createdAt: new Date(),
+      updatedAt: new Date()
+    }]);
+  },
+
+  async down (queryInterface, Sequelize) {
+    /**
+     * Add commands to revert seed here.
+     *
+     * Example:
+     * await queryInterface.bulkDelete('People', null, {});
+     */
+  }
+};
