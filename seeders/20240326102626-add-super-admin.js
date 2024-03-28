@@ -1,12 +1,11 @@
 'use strict';
-
-const { UUID, UUIDV4 } = require('sequelize');
+const { v4: uuidv4 } = require('uuid');
 
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up (queryInterface, Sequelize) {
     return queryInterface.bulkInsert('users', [{
-      user_uuid: UUIDV4(),
+      user_uuid: uuidv4(),
       name: "SPV 1",
       email: "superadmin@giant.com",
       password: "superadmin",

@@ -11,7 +11,4 @@ const comparePassword = (password, hash) => {
 
 }
 
-module.exports = {
-    hashPassword,
-    comparePassword
-}
+module.exports={hashPassword,comparePassword}

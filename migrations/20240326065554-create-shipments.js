@@ -10,7 +10,8 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       shipment_uuid: {
-        type: Sequelize.UUIDV4
+        type: Sequelize.STRING,
+        defaultValue: Sequelize.UUIDV4
       },
       shipment_number: {
         type: Sequelize.STRING(100)

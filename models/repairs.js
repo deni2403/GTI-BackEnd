@@ -14,7 +14,10 @@ module.exports = (sequelize, DataTypes) => {
     }
   }
   repairs.init({
-    repair_uuid: DataTypes.UUIDV4,
+    repair_uuid: {
+      type: DataTypes.STRING,
+      defaultValue: DataTypes.UUIDV4
+    },
     user_id: DataTypes.INTEGER,
     container_id: DataTypes.INTEGER,
     remark: DataTypes.TEXT,
