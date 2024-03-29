@@ -40,7 +40,7 @@ const Container = sequelize.define(
 );
 
 //User and Container relation
-User.hasMany(Container);
+User.hasMany(Container, { foreignKey: 'user_id' });
 Container.belongsTo(User, { foreignKey: 'user_id' });
 
 await Container.sync();

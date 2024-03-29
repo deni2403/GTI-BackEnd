@@ -29,12 +29,12 @@ const Repairment = sequelize.define(
 );
 
 //User and Repairment relation
-User.hasMany(Repairment);
+User.hasMany(Repairment, { foreignKey: 'user_id' });
 Repairment.belongsTo(User, { foreignKey: 'user_id' });
 
 //Container and Repairment relation
-Repairment.hasOne(Container, { foreignKey: 'container_id' });
-Container.belongsTo(Repairment, { foreignKey: 'container_id' });
+Container.hasOne(Repairment, { foreignKey: 'container_id' });
+Repairment.belongsTo(Container, { foreignKey: 'container_id' });
 
 
 await Repairment.sync();

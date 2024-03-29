@@ -19,6 +19,7 @@ const Shipment = sequelize.define(
     },
     container_id: {
       type: DataTypes.INTEGER,
+      foreignKey: true,
     },
     return_empty: {
       type: DataTypes.DATE,
@@ -35,6 +36,7 @@ const Shipment = sequelize.define(
     },
     shipment_detail_id: {
       type: DataTypes.INTEGER,
+      foreignKey: true,
     },
     remark_description: {
       type: DataTypes.TEXT,
@@ -58,17 +60,17 @@ const Shipment = sequelize.define(
 );
 
 //User and Shipment relation
-User.hasMany(Shipment);
+User.hasMany(Shipment, { foreignKey: 'user_id' });
 Shipment.belongsTo(User, { foreignKey: 'user_id' });
 
 
 //Shipment_Detail and Shipment relation
-Shipment.hasOne(Shipment_Detail, { foreignKey: 'shipment_detail_id' });
-Shipment_Detail.belongsTo(Shipment, { foreignKey: 'shipment_detail_id' });
+Shipment_Detail.hasOne(Shipment, { foreignKey: 'shipment_detail_id' });
+Shipment.belongsTo(Shipment_Detail, { foreignKey: 'shipment_detail_id' });
 
 //Container and Shipment relation
-Shipment.hasMany(Container, { foreignKey: 'container_id' });
-Container.belongsTo(Shipment, { foreignKey: 'container_id' });
+Container.hasOne(Shipment, { foreignKey: 'container_id' });
+Shipment.belongsTo(Container, { foreignKey: 'container_id' });
 
 await Shipment.sync();
 

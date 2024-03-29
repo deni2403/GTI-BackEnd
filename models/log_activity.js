@@ -29,7 +29,7 @@ const log_activity = sequelize.define(
 );
 
 //User and Log_activity relation
-User.hasMany(log_activity);
+User.hasMany(log_activity, { foreignKey: 'user_id' });
 log_activity.belongsTo(User, { foreignKey: 'user_id' });
 
 //Container and Log_activity relation
