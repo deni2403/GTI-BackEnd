@@ -1,28 +1,32 @@
-'use strict';
-const {
-  Model
-} = require('sequelize');
-module.exports = (sequelize, DataTypes) => {
-  class shipment_detail extends Model {
-    /**
-     * Helper method for defining associations.
-     * This method is not a part of Sequelize lifecycle.
-     * The `models/index` file will call this method automatically.
-     */
-    static associate(models) {
-      // define association here
-    }
-  }
-  shipment_detail.init({
-    POL: DataTypes.STRING(100),
-    POD: DataTypes.STRING(100),
-    ETD: DataTypes.DATE,
-    ETA: DataTypes.DATE,
-    stuffing_date: DataTypes.DATE,
-    shipper: DataTypes.STRING
-  }, {
-    sequelize,
-    modelName: 'shipment_detail',
-  });
-  return shipment_detail;
-};
+import { sequelize, DataTypes } from '../config/database.js';
+
+const Shipment_Detail = sequelize.define(
+  'shipment_detail',
+  {
+    POL: {
+      type: DataTypes.STRING(100),
+    },
+    POD: {
+      type: DataTypes.STRING(100),
+    },
+    ETD: {
+      type: DataTypes.DATE,
+    },
+    ETA: {
+      type: DataTypes.DATE,
+    },
+    stuffing_date: {
+      type: DataTypes.DATE,
+    },
+    shipper: {
+      type: DataTypes.STRING,
+    },
+  },
+  {
+    freezeTableName: true,
+  },
+);
+
+await Shipment_Detail.sync();
+
+export default Shipment_Detail;

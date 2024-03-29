@@ -1,33 +1,48 @@
-'use strict';
-const {
-  Model
-} = require('sequelize');
-module.exports = (sequelize, DataTypes) => {
-  class containers extends Model {
-    /**
-     * Helper method for defining associations.
-     * This method is not a part of Sequelize lifecycle.
-     * The `models/index` file will call this method automatically.
-     */
-    static associate(models) {
-      containers.belongsTo(models.users,{foreignkey:"users_id"}),
-      containers.hasOne(models.repairs,{foreignKey:"container_id"}),
-      containers.hasOne(models.shipments,{foreignkey:"shipments_id"})
-    }
-  }
-  containers.init({
-    container_uuid: DataTypes.UUIDV4,
-    container_number: DataTypes.STRING(100),
-    user_id: DataTypes.INTEGER,
-    age: DataTypes.INTEGER,
-    location: DataTypes.ENUM("Jakarta","Makassar","Medan","Surabaya"),
-    iddle_days: DataTypes.INTEGER,
-    type: DataTypes.ENUM("20 feet","40 feet"),
-    status: DataTypes.ENUM("Ready","In Use","Repair"),
-    remark: DataTypes.TEXT
-  }, {
-    sequelize,
-    modelName: 'containers',
-  });
-  return containers;
-};
+import { sequelize, DataTypes } from '../config/database.js';
+import User from './Users.js';
+
+const Container = sequelize.define(
+  'containers',
+  {
+    container_uuid: {
+      type: DataTypes.STRING,
+      defaultValue: DataTypes.UUIDV4,
+      allowNull: false,
+    },
+    container_number: {
+      type: DataTypes.STRING(100),
+    },
+    user_id: {
+      type: DataTypes.INTEGER,
+    },
+    age: {
+      type: DataTypes.INTEGER,
+    },
+    location: {
+      type: DataTypes.ENUM('Jakarta', 'Makassar', 'Medan', 'Surabaya'),
+    },
+    iddle_days: {
+      type: DataTypes.INTEGER,
+    },
+    type: {
+      type: DataTypes.ENUM('20 feet', '40 feet'),
+    },
+    status: {
+      type: DataTypes.ENUM('Ready', 'In Use', 'Repair'),
+    },
+    remark: {
+      type: DataTypes.TEXT,
+    },
+  },
+  {
+    freezeTableName: true,
+  },
+);
+
+//User and Container relation
+User.hasMany(Container);
+Container.belongsTo(User, { foreignKey: 'user_id' });
+
+await Container.sync();
+
+export default Container;
